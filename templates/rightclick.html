@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Metin Seçme</title>
+    <script>
+        function metniGoster() {
+            // Seçilen metni al
+            var secilenMetin = window.getSelection().toString();
+
+            // Seçilen metni diğer forma aktar
+            document.getElementById("gosterilenMetin").value = secilenMetin;
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <textarea id="metinAlani" onmouseup="metniGoster()" rows="4" cols="50">
+            Buraya metin yazın ve seçin.
+        </textarea>
+    </form>
+
+    <form>
+        <label for="gosterilenMetin">Seçilen Metin:</label>
+        <input type="text" id="gosterilenMetin" name="gosterilenMetin">
+    </form>
+</body>
+
+</html>

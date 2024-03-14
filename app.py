@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from transformers import pipeline
 
@@ -6,14 +6,21 @@ app = Flask(__name__)
 
 summarizer = pipeline("summarization", model="Falconsai/text_summarization")
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/orjinal', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         input_text = request.form['input_text']
         summary = summarizer(input_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
         return render_template('summarize.html', input_text=input_text, summary=summary)
     return render_template('summarize.html')
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    selected_text = ""
 
+    if request.method == 'POST':
+        selected_text = request.form['selected_text']
+
+    return render_template('rightclick.html', selected_text=selected_text)
 if __name__ == '__main__':
     app.run(debug=True)
 
