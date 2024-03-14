@@ -12,6 +12,7 @@
             document.getElementById("gosterilenMetin").value = secilenMetin;
         }
     </script>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -21,10 +22,14 @@
         </textarea>
     </form>
 
-    <form>
+    <form method="post">
         <label for="gosterilenMetin">Seçilen Metin:</label>
         <input type="text" id="gosterilenMetin" name="gosterilenMetin">
+        <button type="submit">İşlem Yap</button>
     </form>
+    {% if selected_text %}
+        <p>{{ selected_text }}</p>
+    {% endif %}
 </body>
 
 </html>

@@ -15,12 +15,13 @@ def home():
     return render_template('summarize.html')
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    selected_text = ""
-
+    selected_text=""
     if request.method == 'POST':
-        selected_text = request.form['selected_text']
-
+        selected_text = request.form['gosterilenMetin']
+        selected_text=selected_text + " ben seçildim"
+        return render_template('rightclick.html', selected_text=selected_text)
     return render_template('rightclick.html', selected_text=selected_text)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
