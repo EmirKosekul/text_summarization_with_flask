@@ -4,9 +4,11 @@
 <head>
     <title>Metin Seçme</title>
     <script>
+        var metinAlaniMetni = "";
         function metniGoster() {
             // Seçilen metni al
             var secilenMetin = window.getSelection().toString();
+            metinAlaniMetni = document.getElementById("metinAlani").value;
 
             // Seçilen metni diğer forma aktar
             document.getElementById("gosterilenMetin").value = secilenMetin;
@@ -16,19 +18,20 @@
 </head>
 
 <body>
-    <form>
+    <!-- <form method="post">
         <textarea id="metinAlani" onmouseup="metniGoster()" rows="4" cols="50">
-            Buraya metin yazın ve seçin.
+            {{main_text}}
         </textarea>
-    </form>
+    </form> -->
 
     <form method="post">
+        <textarea id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4" cols="50">{{main_text}}</textarea>
         <label for="gosterilenMetin">Seçilen Metin:</label>
-        <input type="text" id="gosterilenMetin" name="gosterilenMetin">
+        <input type="text" id="gosterilenMetin" name="gosterilenMetin" value="{{ selected_text }}"> 
         <button type="submit">İşlem Yap</button>
     </form>
     {% if selected_text %}
-        <p>{{ selected_text }}</p>
+        <p>{{ summary }}</p>
     {% endif %}
 </body>
 
