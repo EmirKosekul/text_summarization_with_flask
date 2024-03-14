@@ -25,13 +25,15 @@
     </form> -->
 
     <form method="post">
-        <textarea id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4" cols="50">{{main_text}}</textarea>
+        <textarea id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
+            cols="50">{{main_text}}</textarea>
         <label for="gosterilenMetin">Seçilen Metin:</label>
-        <input type="text" id="gosterilenMetin" name="gosterilenMetin" value="{{ selected_text }}"> 
-        <button type="submit">İşlem Yap</button>
+        <input type="text" id="gosterilenMetin" name="gosterilenMetin" value="{{ selected_text }}">
+        <button type="submit" name="action" value="first_action">İşlem Yap</button>
+        <button type="submit" name="action" value="second_action">İkinci İşlem</button>
     </form>
     {% if selected_text %}
-        <p>{{ summary }}</p>
+    <p>{{ result }}</p>
     {% endif %}
 </body>
 

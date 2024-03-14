@@ -5,8 +5,10 @@ from transformers import pipeline
 app = Flask(__name__)
 
 summarizer = pipeline("summarization", model="Falconsai/text_summarization")
-main_text=""
 
+
+main_text=""
+result=""
 @app.route('/orjinal', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
@@ -17,12 +19,18 @@ def home():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global main_text
+    global result
     selected_text=""
     if request.method == 'POST':
         selected_text = request.form['gosterilenMetin']
         main_text=request.form['metinAlani']
-        summary=summarizer(selected_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
-        return render_template('rightclick.html', selected_text=selected_text,main_text=main_text ,summary=summary)
+        if request.form['action'] == 'first_action':
+         #result=summarizer(selected_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
+         result="ilk işlem"   
+        elif request.form['action'] == 'second_action':
+         
+         result="ikinci işlem"   
+        return render_template('rightclick.html', selected_text=selected_text,main_text=main_text ,result=result)
     return render_template('rightclick.html')
 
 if __name__ == '__main__':
