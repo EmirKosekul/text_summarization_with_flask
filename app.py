@@ -21,7 +21,7 @@ def index():
     if request.method == 'POST':
         selected_text = request.form['gosterilenMetin']
         main_text=request.form['metinAlani']
-        summary=selected_text + " ben seçildim"
+        summary=summarizer(selected_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
         return render_template('rightclick.html', selected_text=selected_text,main_text=main_text ,summary=summary)
     return render_template('rightclick.html')
 
