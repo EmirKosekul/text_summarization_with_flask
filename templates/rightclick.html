@@ -29,8 +29,8 @@
             cols="50">{{main_text}}</textarea>
         <label for="gosterilenMetin">Seçilen Metin:</label>
         <input type="text" id="gosterilenMetin" name="gosterilenMetin" value="{{ selected_text }}">
-        <button type="submit" name="action" value="first_action">İşlem Yap</button>
-        <button type="submit" name="action" value="second_action">İkinci İşlem</button>
+        <button type="submit" name="action" value="first_action">Get a Summary</button>
+        <button type="submit" name="action" value="second_action">Generate a Question</button>
     </form>
     {% if selected_text %}
     <p>{{header}}</p>

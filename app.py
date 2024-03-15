@@ -32,10 +32,12 @@ def index():
          #result="ilk işlem"   
         elif request.form['action'] == 'second_action':
          header="A question for you!"
-         random_number = random.randint(1, 5)         
-         generated_questions = question_generator(selected_text, max_length=50, num_return_sequences=1, num_beams=5, early_stopping=True)
-         question=generated_questions[1]
-         result=question   
+         random_number = random.randint(1, 3)         
+         generated_questions = question_generator(selected_text, max_length=50, num_return_sequences=5, num_beams=5, early_stopping=True)
+         question=generated_questions[random_number]['generated_text']
+         #question=generated_questions[0]['generated_text']+"\n"+generated_questions[1]['generated_text']+"\n"+generated_questions[2]['generated_text']+"\n"+generated_questions[3]['generated_text']+"\n"
+         result=question
+         #result="asd"   
         return render_template('rightclick.html', selected_text=selected_text,main_text=main_text ,result=result, header=header)
     return render_template('rightclick.html')
 
