@@ -3,8 +3,12 @@
 
 <head>
     <title>Metin Seçme</title>
+    <style>
+       
+    </style>
     <script>
         var metinAlaniMetni = "";
+
         function metniGoster() {
             // Seçilen metni al
             var secilenMetin = window.getSelection().toString();
@@ -13,17 +17,57 @@
             // Seçilen metni diğer forma aktar
             document.getElementById("gosterilenMetin").value = secilenMetin;
         }
+
+        // Sağ tıklandığında özel menüyü aç
+        window.addEventListener("contextmenu", function (event) {
+            var ozelMenu = document.getElementById("ozelMenu");
+            event.preventDefault();
+            ozelMenu.style.display = "block";
+            ozelMenu.style.left = event.pageX + "px";
+            ozelMenu.style.top = event.pageY + "px";
+        });
+
+        // Belge tıklanırsa özel menüyü kapat
+        document.addEventListener("click", function () {
+            document.getElementById("ozelMenu").style.display = "none";
+        });
+
+        // Menü öğelerine tıklama event listener'ları ekle
+        document.addEventListener("DOMContentLoaded", function () {
+            var menuItems = document.querySelectorAll("#ozelMenu li");
+            menuItems.forEach(function (item) {
+                item.addEventListener("click", function (event) {
+                    var action = event.target.getAttribute("data-action");
+                    if (action) {
+                        // İlgili işlevi çağır
+                        handleMenuAction(action);
+                    }
+                    // Menüyü kapat
+                    document.getElementById("ozelMenu").style.display = "none";
+                });
+            });
+        });
+
+        // Menü işlevlerini yöneten işlev
+        function handleMenuAction(action) {
+            switch (action) {
+                case "get_summary":
+                    // Get a Summary işlevi burada çağrılabilir
+                    document.querySelector("button[value='first_action']").click();
+                    break;
+                case "generate_question":
+                    // Generate a Question işlevi burada çağrılabilir
+                    document.querySelector("button[value='second_action']").click();
+                    break;
+                default:
+                    console.log("Bilinmeyen işlev: " + action);
+            }
+        }
     </script>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
-    <!-- <form method="post">
-        <textarea id="metinAlani" onmouseup="metniGoster()" rows="4" cols="50">
-            {{main_text}}
-        </textarea>
-    </form> -->
-
     <form method="post">
         <textarea id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
             cols="50">{{main_text}}</textarea>
@@ -32,6 +76,15 @@
         <button type="submit" name="action" value="first_action">Get a Summary</button>
         <button type="submit" name="action" value="second_action">Generate a Question</button>
     </form>
+
+    <!-- Özel menü -->
+    <div id="ozelMenu">
+        <ul>
+            <li data-action="get_summary">Get Summary</li>
+            <li data-action="generate_question">Generate Question</li>
+        </ul>
+    </div>
+
     {% if selected_text %}
     <p>{{header}}</p>
     <p>{{ result }}</p>

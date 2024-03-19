@@ -52,3 +52,21 @@ p {
     margin-top: 10px;
     margin-bottom: 20px;
 }
+
+button[name='action'] {
+    display: none;
+}
+/* Özel menüyü stilize etmek için CSS */
+#ozelMenu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+#ozelMenu li {
+    cursor: pointer;
+}
