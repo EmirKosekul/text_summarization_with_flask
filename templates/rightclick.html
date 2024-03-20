@@ -4,7 +4,7 @@
 <head>
     <title>Metin Seçme</title>
     <style>
-       
+
     </style>
     <script>
         var metinAlaniMetni = "";
@@ -68,15 +68,25 @@
 </head>
 
 <body>
-    <form method="post">
-        <textarea id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
-            cols="50">{{main_text}}</textarea>
-        <label for="gosterilenMetin">Seçilen Metin:</label>
-        <input type="text" id="gosterilenMetin" name="gosterilenMetin" value="{{ selected_text }}">
-        <button type="submit" name="action" value="first_action">Get a Summary</button>
-        <button type="submit" name="action" value="second_action">Generate a Question</button>
-    </form>
 
+    <form method="post">
+        <div class="mainTextDiv">
+            <textarea class="mainTextArea" id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
+                cols="50">{{main_text}}</textarea>
+        </div>
+        <div class="spaceDiv"></div>
+        <div class="selectedTextDiv">
+            <!-- <label for="gosterilenMetin">Seçilen Metin:</label> -->
+            <!-- <input type="text" id="gosterilenMetinn" name="gosterilenMetinn" value="{{ selected_text }}"> -->
+            <textarea class="selectedTextArea" type="text" id="gosterilenMetin" name="gosterilenMetin"
+                value="{{ selected_text }}">{{ selected_text }} </textarea>
+            <button type="submit" name="action" value="first_action">Get a Summary</button>
+            <button type="submit" name="action" value="second_action">Generate a Question</button>
+            <label class="headerLabel">{{header}}</label>
+            <textarea class="answerTextArea">{{ result }}</textarea>
+        </div>
+    </form>
+    
     <!-- Özel menü -->
     <div id="ozelMenu">
         <ul>
@@ -85,10 +95,7 @@
         </ul>
     </div>
 
-    {% if selected_text %}
-    <p>{{header}}</p>
-    <p>{{ result }}</p>
-    {% endif %}
+
 </body>
 
 </html>
