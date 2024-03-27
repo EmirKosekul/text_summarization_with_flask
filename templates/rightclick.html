@@ -6,8 +6,7 @@
     <style>
 
     </style>
-    <script src="https://cdn.tiny.cloud/1/744zp1yhxdm6k21yjeud5xi80yoch4kq5n0tjzbt2onpm29r/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         var metinAlaniMetni = "";
 
@@ -70,32 +69,28 @@
 </head>
 
 <body>
-
     <form method="post">
         <div class="mainTextDiv">
-            <textarea class="mainTextArea" id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
+            <textarea class="mainTextArea" id="metinAlani" name="metinAlani" rows="4"
                 cols="50">{{main_text}}</textarea>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    tinymce.init({
-                        selector: '#metinAlani',
-                        contextmenu_never_use_native: true,
-                        setup: function (editor) {
-                            editor.on('NodeChange', function () {
-                                var selectedText = editor.selection.getContent({ format: 'text' });
-                                document.getElementById('gosterilenMetin').value = selectedText;
-                            });
-                        }
+                <script>
+                    CKEDITOR.replace('metinAlani');
+                    function showSelectedText() {
+                        var editor = CKEDITOR.instances.metinAlani;
+                        var selectedText = editor.getSelection().getSelectedText();
+                        document.getElementById('gosterilenMetin').value = selectedText;
+                    }
+                    CKEDITOR.instances.metinAlani.on('contentDom', function () {
+                        this.document.on('selectionchange', showSelectedText);
                     });
-                });
-            </script>
+                </script>
         </div>
         <div class="spaceDiv"></div>
         <div class="selectedTextDiv">
             <!-- <label for="gosterilenMetin">Seçilen Metin:</label> -->
             <!-- <input type="text" id="gosterilenMetinn" name="gosterilenMetinn" value="{{ selected_text }}"> -->
             <textarea class="selectedTextArea" type="text" id="gosterilenMetin" name="gosterilenMetin"
-                value="{{ selected_text }}">{{ selected_text }} </textarea>
+                value="{{ selected_text }}">{{ selected_text }}</textarea>
             <button type="submit" name="action" value="first_action">Get a Summary</button>
             <button type="submit" name="action" value="second_action">Generate a Question</button>
             <label class="headerLabel">{{header}}</label>
@@ -110,8 +105,6 @@
             <li data-action="generate_question">Generate Question</li>
         </ul>
     </div>
-
-
 </body>
 
 </html>
