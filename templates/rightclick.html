@@ -6,17 +6,19 @@
     <style>
 
     </style>
+    <script src="https://cdn.tiny.cloud/1/744zp1yhxdm6k21yjeud5xi80yoch4kq5n0tjzbt2onpm29r/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <script>
         var metinAlaniMetni = "";
 
-        function metniGoster() {
-            // Seçilen metni al
-            var secilenMetin = window.getSelection().toString();
-            metinAlaniMetni = document.getElementById("metinAlani").value;
+        // function metniGoster() {
+        //     // Seçilen metni al
+        //     var secilenMetin = window.getSelection().toString();
+        //     metinAlaniMetni = document.getElementById("metinAlani").value;
 
-            // Seçilen metni diğer forma aktar
-            document.getElementById("gosterilenMetin").value = secilenMetin;
-        }
+        //     // Seçilen metni diğer forma aktar
+        //     document.getElementById("gosterilenMetin").value = secilenMetin;
+        // }
 
         // Sağ tıklandığında özel menüyü aç
         window.addEventListener("contextmenu", function (event) {
@@ -73,6 +75,20 @@
         <div class="mainTextDiv">
             <textarea class="mainTextArea" id="metinAlani" name="metinAlani" onmouseup="metniGoster()" rows="4"
                 cols="50">{{main_text}}</textarea>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    tinymce.init({
+                        selector: '#metinAlani',
+                        contextmenu_never_use_native: true,
+                        setup: function (editor) {
+                            editor.on('NodeChange', function () {
+                                var selectedText = editor.selection.getContent({ format: 'text' });
+                                document.getElementById('gosterilenMetin').value = selectedText;
+                            });
+                        }
+                    });
+                });
+            </script>
         </div>
         <div class="spaceDiv"></div>
         <div class="selectedTextDiv">
@@ -86,7 +102,7 @@
             <textarea class="answerTextArea">{{ result }}</textarea>
         </div>
     </form>
-    
+
     <!-- Özel menü -->
     <div id="ozelMenu">
         <ul>

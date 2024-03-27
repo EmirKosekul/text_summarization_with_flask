@@ -28,15 +28,15 @@ def index():
         main_text=request.form['metinAlani']
         if request.form['action'] == 'first_action':
          header="Your summary is here!"
-         result=summarizer(selected_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
-        #  result=selected_text + " İlk işlem" 
+        #  result=summarizer(selected_text, max_length=1000, min_length=30, do_sample=False)[0]['summary_text']
+         result=selected_text + " İlk işlem" 
         elif request.form['action'] == 'second_action':
          header="A question for you!"
-         random_number = random.randint(1, 3)         
-         generated_questions = question_generator(selected_text, max_length=50, num_return_sequences=5, num_beams=5, early_stopping=True)
-         question=generated_questions[random_number]['generated_text']
-         result=question
-        #  result=selected_text + " İkinci işlem"    
+        #  random_number = random.randint(1, 3)         
+        #  generated_questions = question_generator(selected_text, max_length=50, num_return_sequences=5, num_beams=5, early_stopping=True)
+        #  question=generated_questions[random_number]['generated_text']
+        #  result=question
+         result=selected_text + " İkinci işlem"    
         return render_template('rightclick.html', selected_text=selected_text,main_text=main_text ,result=result, header=header)
     return render_template('rightclick.html')
 

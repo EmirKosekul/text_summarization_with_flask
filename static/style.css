@@ -98,6 +98,11 @@ button[name='action'] {
     display: none;
 }
 
+textarea[name='gosterilenMetin']{
+    /* display:none; */
+    background-color: aqua;
+}
+
 #ozelMenu {
     display: none;
     position: absolute;
