@@ -71,19 +71,59 @@
 <body>
     <form method="post">
         <div class="mainTextDiv">
-            <textarea class="mainTextArea" id="metinAlani" name="metinAlani" rows="4"
-                cols="50">{{main_text}}</textarea>
-                <script>
-                    CKEDITOR.replace('metinAlani');
-                    function showSelectedText() {
-                        var editor = CKEDITOR.instances.metinAlani;
-                        var selectedText = editor.getSelection().getSelectedText();
-                        document.getElementById('gosterilenMetin').value = selectedText;
+            <textarea class="mainTextArea" id="metinAlani" name="metinAlani" rows="4" cols="50">{{main_text}}</textarea>
+            <script>
+                CKEDITOR.replace('metinAlani', {
+                    on: {
+                        instanceReady: function (evt) {
+                            var editor = evt.editor;
+                            editor.addMenuGroup('customGroup');
+                            editor.addMenuItem('customItem',
+                                {
+                                    label: 'Get Summary',
+                                    command: 'getSummary',
+                                    group: 'customGroup',
+                                }
+                            );
+                            editor.addMenuItem('customItem2',
+                                {
+                                    label: 'Get Question',
+                                    command: 'getQuestion',
+                                    group: 'customGroup',
+                                }
+                            );
+                            editor.addCommand('getSummary', {
+                                exec: function (editor) {
+                                    document.querySelector("button[value='first_action']").click();
+                                }
+                            });
+                            editor.addCommand('getQuestion', {
+                                exec: function (editor) {
+                                    document.querySelector("button[value='second_action']").click();
+                                }
+                            });
+
+                            editor.contextMenu.addListener(function (element) {
+                                var items = {};
+                                items['customItem'] = CKEDITOR.TRISTATE_OFF;
+                                items['customItem2'] = CKEDITOR.TRISTATE_OFF;
+                                return items;
+                            });
+                        }
                     }
-                    CKEDITOR.instances.metinAlani.on('contentDom', function () {
-                        this.document.on('selectionchange', showSelectedText);
-                    });
-                </script>
+                });
+
+                function showSelectedText() {
+                    var editor = CKEDITOR.instances.metinAlani;
+                    var selectedText = editor.getSelection().getSelectedText();
+                    document.getElementById('gosterilenMetin').value = selectedText;
+                }
+
+                CKEDITOR.instances.metinAlani.on('contentDom', function () {
+                    this.document.on('selectionchange', showSelectedText);
+                });
+            </script>
+
         </div>
         <div class="spaceDiv"></div>
         <div class="selectedTextDiv">
